@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Register - StudentSync</title>
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background: linear-gradient(135deg,#5f9cff,#6c63ff);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* REGISTER BOX */
+
+.register-container{
+background:white;
+padding:40px;
+border-radius:15px;
+width:380px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+.register-container h2{
+margin-bottom:25px;
+color:#5f63ff;
+}
+
+/* INPUT GROUP */
+
+.input-group{
+margin-bottom:18px;
+text-align:left;
+}
+
+.input-group label{
+font-size:14px;
+}
+
+.input-group input{
+width:100%;
+padding:10px;
+margin-top:5px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+/* PASSWORD FIELD */
+
+.password-field{
+position:relative;
+}
+
+.password-field span{
+position:absolute;
+right:10px;
+top:35px;
+cursor:pointer;
+}
+
+/* BUTTON */
+
+.register-btn{
+width:100%;
+padding:12px;
+background:#5f63ff;
+border:none;
+color:white;
+border-radius:25px;
+font-size:16px;
+cursor:pointer;
+}
+
+.register-btn:hover{
+background:#4b50d1;
+}
+
+/* LOGIN LINK */
+
+.login-link{
+margin-top:15px;
+font-size:14px;
+}
+
+.login-link a{
+color:#5f63ff;
+text-decoration:none;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+<h2>Create Your StudentSync Account</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="input-group">
+<label>Username</label>
+<input type="text" name="username" required>
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" name="email" required>
+</div>
+
+<div class="input-group password-field">
+<label>Password</label>
+<input type="password" name="password" id="password" required>
+<span onclick="togglePassword('password')">👁</span>
+</div>
+
+<div class="input-group password-field">
+<label>Confirm Password</label>
+<input type="password" name="confirm_password" id="confirm_password" required>
+<span onclick="togglePassword('confirm_password')">👁</span>
+</div>
+
+<button class="register-btn">Register</button>
+
+</form>
+
+<div class="login-link">
+Already have an account? <a href="/login/">Login</a>
+</div>
+
+</div>
+
+<script>
+
+function togglePassword(fieldId){
+var x = document.getElementById(fieldId);
+
+if(x.type === "password"){
+x.type = "text";
+}else{
+x.type = "password";
+}
+}
+
+</script>
+
+</body>
+</html>

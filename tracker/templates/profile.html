@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+{% load static %}
+
+<title>Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* GLOBAL */
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#eef2ff,#f8f9ff);
+}
+
+/* CONTAINER */
+
+.container{
+width:90%;
+max-width:900px;
+margin:50px auto;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+display:inline-block;
+background:#4e73df;
+color:white;
+padding:10px 18px;
+border-radius:20px;
+text-decoration:none;
+margin-bottom:20px;
+}
+
+/* PROFILE CARD */
+
+.profile-card{
+background:white;
+border:2px solid #4e73df;
+border-radius:20px;
+padding:30px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+/* PROFILE ICON */
+
+.profile-icon{
+width:90px;
+height:90px;
+background:#4e73df;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:36px;
+margin:0 auto 15px;
+}
+
+.profile-icon{
+transition:0.3s;
+}
+
+.profile-icon:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px rgba(78,115,223,0.5);
+}
+
+/* NAME */
+
+.profile-name{
+font-size:24px;
+font-weight:600;
+color:#2c3e50;
+}
+
+/* INFO GRID */
+
+.profile-info{
+margin-top:25px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+/* INFO CARD */
+
+.info-card{
+background:#f8f9ff;
+border-radius:15px;
+padding:15px;
+text-align:left;
+}
+
+.info-card i{
+color:#4e73df;
+margin-right:8px;
+}
+
+.info-title{
+font-size:13px;
+color:#777;
+}
+
+.info-value{
+font-size:16px;
+font-weight:500;
+margin-top:4px;
+}
+
+/* BUTTONS */
+
+.profile-actions{
+margin-top:25px;
+}
+
+.profile-actions a{
+display:inline-block;
+margin:8px;
+padding:10px 18px;
+border-radius:20px;
+text-decoration:none;
+font-size:14px;
+}
+
+.edit-btn{
+background:#4e73df;
+color:white;
+}
+
+.logout-btn{
+background:#fee2e2;
+color:#dc2626;
+}
+
+.edit-btn:hover{
+background:#3b5edb;
+}
+
+.logout-btn:hover{
+background:#dc2626;
+color:white;
+}
+
+/* ===== FINAL DARK MODE FIX ===== */
+
+/* General page */
+body.dark-mode {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* ALL cards, boxes, forms */
+body.dark-mode .card,
+body.dark-mode .stat-card,
+body.dark-mode .progress-card,
+body.dark-mode .chart-card,
+body.dark-mode .upcoming-card,
+body.dark-mode .datetime-card,
+body.dark-mode .assignment-card,
+body.dark-mode .task-card,
+body.dark-mode .form-container,
+body.dark-mode form,
+body.dark-mode .box,
+body.dark-mode .container > div {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+/* VERY IMPORTANT → list items (your deadlines issue) */
+body.dark-mode .deadline-list li {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Inputs */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+}
+
+/* Buttons */
+body.dark-mode button {
+    color: white;
+}
+
+/* Tables (already working but keeping safe) */
+body.dark-mode table {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+    color: #e2e8f0;
+    border-color: #334155;
+}
+
+/* Navbar */
+body.dark-mode .navbar {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="{% url 'dashboard' %}" class="back-btn">
+<i class="fa-solid fa-arrow-left"></i> Dashboard
+</a>
+
+<div class="profile-card">
+
+<div class="profile-icon">
+<i class="fa-solid fa-user"></i>
+</div>
+
+<div class="profile-name">
+{{ request.user.username }}
+</div>
+
+<div class="profile-info">
+
+<div class="info-card">
+<div class="info-title"><i class="fa-solid fa-envelope"></i> Email</div>
+<div class="info-value">{{ request.user.email }}</div>
+</div>
+
+<div class="info-card">
+<div class="info-title"><i class="fa-solid fa-calendar"></i> Joined</div>
+<div class="info-value">{{ request.user.date_joined|date:"M d, Y" }}</div>
+</div>
+
+<div class="info-card">
+<div class="info-title"><i class="fa-solid fa-user-check"></i> Status</div>
+<div class="info-value">Active</div>
+</div>
+
+</div>
+
+<div class="profile-actions">
+<a href="{% url 'change_password' %}" class="edit-btn">
+<i class="fa-solid fa-lock"></i> Change Password
+</a>
+<a href="{% url 'logout' %}" class="logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i> Logout
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+if(localStorage.getItem("darkMode") === "enabled"){
+    document.body.classList.add("dark-mode");
+}
+</script>
+
+</body>
+</html>

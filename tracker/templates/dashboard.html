@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>StudentSync Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* GLOBAL */
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:var(--bg-color);
+color: var(--text-color);
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+padding:40px 0;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1f2937;
+    --card-bg: #ffffff;
+    --border-color: #e3e8ff;
+    --primary: #4e73df;
+}
+
+body.dark-mode {
+    --bg-color: #0f172a;
+    --text-color: #e2e8f0;
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --primary: #3b82f6;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 50px;
+
+    background: #f8fafc;
+    border-radius: 12px;
+
+    border: 2px solid #4e73df !important;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+    margin: 20px;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #4e73df;
+}
+
+.logo i {
+    font-size: 26px;
+}
+
+/* Right buttons */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Profile button */
+.nav-btn {
+    background: #eef2ff;
+    color: #4e73df;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: #dbe2ff;
+}
+
+/* Logout button */
+.logout-btn {
+    background: linear-gradient(135deg, #4e73df, #2e59d9);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(78,115,223,0.4);
+}
+
+/* DARK BUTTON */
+
+.dark-toggle{
+background:linear-gradient(135deg,#667eea,#764ba2);
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* WELCOME */
+
+.welcome-section{
+text-align:center;
+margin-top:40px;
+}
+
+.welcome-section h1{
+font-size:36px;
+font-weight:600;
+color:#2c3e50;
+}
+
+.welcome-section span{
+color:#4e73df;
+}
+
+.motivation{
+color:#6b7280;
+margin-top:8px;
+font-size:15px;
+}
+
+/* DATE CARD */
+
+.datetime-card{
+background:#fff;
+border:2px solid #4e73df;
+border-radius:18px;
+padding:20px;
+width:250px;
+margin:20px auto;
+text-align:center;
+box-shadow:0 6px 12px rgba(0,0,0,0.1);
+}
+
+.day{
+font-size:20px;
+color:#4f46e5;
+}
+
+.date{
+font-size:18px;
+}
+
+.time{
+font-size:16px;
+color:#666;
+}
+
+/* STATS */
+
+.stats{
+display:flex;
+justify-content:center;
+gap:25px;
+margin-top:35px;
+flex-wrap:wrap;
+}
+
+.stat-card{
+flex:0 0 220px;
+background:#fff;
+border:2px solid #4e73df;
+border-radius:18px;
+padding:25px;
+box-shadow:0 6px 12px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.stat-card i{
+font-size:26px;
+color:#4f46e5;
+margin-bottom:10px;
+}
+
+.stat-card p{
+font-size:28px;
+font-weight:700;
+color:#4f46e5;
+}
+
+/* PROGRESS */
+
+.progress-card{
+background:white;
+padding:25px;
+border-radius:18px;
+max-width:500px;
+margin:40px auto;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+text-align:center;
+border:2px solid #4e73df
+}
+
+.progress-bar{
+width:100%;
+height:12px;
+background:#eee;
+border-radius:10px;
+overflow:hidden;
+margin:15px 0;
+}
+
+.progress-fill{
+height:100%;
+background:linear-gradient(90deg,#6a85ff,#8ab4ff);
+}
+
+/* CHART */
+
+.chart-card{
+background:#fff;
+border:2px solid #4e73df;
+border-radius:18px;
+padding:20px;
+max-width:650px;
+margin:30px auto;
+text-align:center;
+}
+
+.chart-container{
+height:300px;
+width:100%;
+position:relative;
+}
+
+/* QUICK ACTIONS */
+
+.features{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:40px;
+flex-wrap:wrap;
+}
+
+.circle-card{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+width:120px;
+height:120px;
+text-decoration:none;
+color:#333;
+border:2px solid #4e73df;
+border-radius:20px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.circle-card:hover{
+background:linear-gradient(135deg,#667eea,#764ba2);
+color:#fff;
+transform:translateY(-5px) scale(1.05);
+}
+
+.circle-card i{
+font-size:32px;
+color:#4f46e5;
+margin-bottom:8px;
+}
+
+/* DEADLINES */
+
+.upcoming-card{
+background:white;
+border:2px solid #4e73df;
+border-radius:16px;
+padding:25px;
+margin-top:40px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.deadline-list{
+list-style:none;
+padding:0;
+}
+
+.deadline-list li{
+background:#f8f9ff;
+padding:12px 15px;
+border-radius:10px;
+margin-bottom:10px;
+border-left:4px solid #4e73df;
+}
+
+/* DARK MODE */
+
+body.dark-mode{
+background:#121212;
+color:#e5e7eb;
+}
+
+body.dark-mode {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+
+
+/* DARK MODE TOGGLE */
+
+.dark-toggle{
+margin-left:15px;
+display:flex;
+align-items:center;
+}
+
+#darkModeToggle{
+display:none;
+}
+
+.toggle-label{
+width:60px;
+height:30px;
+background:#4e73df;
+border-radius:50px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:5px;
+cursor:pointer;
+position:relative;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.toggle-label i{
+color:white;
+font-size:12px;
+}
+
+.toggle-ball{
+width:22px;
+height:22px;
+background:white;
+border-radius:50%;
+position:absolute;
+left:4px;
+transition:0.3s;
+}
+
+/* move ball */
+
+#darkModeToggle:checked + .toggle-label .toggle-ball{
+transform:translateX(30px);
+}
+
+body.dark-mode {
+    background-color: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+/* General page */
+body.dark-mode {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* ALL cards, boxes, forms */
+body.dark-mode .card,
+body.dark-mode .stat-card,
+body.dark-mode .progress-card,
+body.dark-mode .chart-card,
+body.dark-mode .upcoming-card,
+body.dark-mode .datetime-card,
+body.dark-mode .assignment-card,
+body.dark-mode .task-card,
+body.dark-mode .form-container,
+body.dark-mode form,
+body.dark-mode .box,
+body.dark-mode .container > div {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode .deadline-list li {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Inputs */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+}
+
+/* Buttons */
+body.dark-mode button {
+    color: white;
+}
+
+body.dark-mode table {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+    color: #e2e8f0;
+    border-color: #334155;
+}
+
+/* Navbar */
+body.dark-mode .navbar {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="navbar">
+
+<div class="logo">
+<i class="fa-solid fa-graduation-cap"></i>
+<span>StudentSync</span>
+</div>
+
+<div class="nav-right">
+
+<a href="{% url 'profile' %}" class="nav-btn">Profile</a>
+<form action="{% url 'logout' %}" method="POST" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
+</form>
+
+<div class="dark-toggle">
+<input type="checkbox" id="darkModeToggle">
+<label for="darkModeToggle" class="toggle-label">
+<i class="fa-solid fa-sun"></i>
+<i class="fa-solid fa-moon"></i>
+<span class="toggle-ball"></span>
+</label>
+</div>
+
+</div>
+</div>
+
+
+<div class="welcome-section">
+
+<h1>Welcome, <span>{{ user.username }}</span> 👋</h1>
+
+<p class="motivation">
+Stay consistent today 💪 Small progress leads to big success.
+</p>
+
+</div>
+
+
+<div class="datetime-card">
+
+<div class="day">📅 <span id="day"></span></div>
+<div class="date" id="date"></div>
+<div class="time">⏰ <span id="time"></span></div>
+
+</div>
+<div class="stats">
+<div class="stat-card">
+<i class="fa-solid fa-book"></i>
+<h3>Pending Assignments</h3>
+<p>{{ pending_assignments }}</p>
+</div>
+
+<div class="stat-card">
+<i class="fa-solid fa-list-check"></i>
+<h3>Pending Tasks</h3>
+<p>{{ pending_tasks }}</p>
+</div>
+
+</div>
+
+<div class="progress-card">
+
+<h3>Your Marks Progress</h3>
+
+<div class="progress-bar">
+<div class="progress-fill" style="width:{{ average_marks }}%"></div>
+</div>
+
+<p>{{ average_marks }}% Overall Score</p>
+
+</div>
+
+
+<div class="chart-card">
+
+<h3>Marks Performance</h3>
+
+<div class="chart-container">
+<canvas id="marksChart"></canvas>
+</div>
+</div>
+
+
+<div class="features">
+
+<a href="{% url 'marks' %}" class="circle-card">
+<i class="fa-solid fa-chart-line"></i>
+<p>Marks Tracker</p>
+</a>
+
+<a href="{% url 'assignments' %}" class="circle-card">
+<i class="fa-solid fa-book-open"></i>
+<p>Assignments</p>
+</a>
+
+<a href="{% url 'tasks' %}" class="circle-card">
+<i class="fa-solid fa-check-circle"></i>
+<p>Task Tracker</p>
+</a>
+
+<a href="{% url 'profile' %}" class="circle-card">
+<i class="fa-solid fa-user"></i>
+<p>Profile</p>
+</a>
+
+</div>
+
+
+<div class="upcoming-card">
+
+<h3>📅 Upcoming Deadlines</h3>
+
+<ul class="deadline-list">
+
+{% for a in upcoming_assignments %}
+<li>
+<strong>{{ a.title }}</strong><br>
+<span>{{ a.subject }} • Due {{ a.due_date }}</span>
+</li>
+{% empty %}
+<li>No upcoming deadlines</li>
+{% endfor %}
+
+</ul>
+
+</div>
+
+</div>
+
+
+<script> 
+
+function updateTime(){
+
+const now=new Date();
+
+const day=new Intl.DateTimeFormat("en-IN",{weekday:"long"}).format(now);
+const date=new Intl.DateTimeFormat("en-IN",{day:"numeric",month:"long",year:"numeric"}).format(now);
+const time=new Intl.DateTimeFormat("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit"}).format(now);
+
+document.getElementById("day").innerHTML=day;
+document.getElementById("date").innerHTML=date;
+document.getElementById("time").innerHTML=time;
+
+}
+
+setInterval(updateTime,1000);
+updateTime();
+</script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+const labels = {{ labels|safe }};
+const data = {{ data|safe }};
+
+const ctx = document.getElementById("marksChart");
+
+if(ctx){
+
+new Chart(ctx,{
+type:"line",
+data:{
+labels:labels,
+datasets:[{
+label:"Marks %",
+data:data,
+borderColor:"#4e73df",
+backgroundColor:"rgba(78,115,223,0.15)",
+fill:true,
+tension:0.4,
+pointRadius:5
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+scales:{
+y:{
+beginAtZero:true,
+max:100
+}
+}
+}
+});
+
+}
+
+});
+
+</script>
+
+<script>
+
+const toggle = document.getElementById("darkModeToggle");
+
+// load saved mode
+if(localStorage.getItem("darkMode") === "enabled"){
+document.body.classList.add("dark-mode");
+toggle.checked = true;
+}
+
+toggle.addEventListener("change", () => {
+
+document.body.classList.toggle("dark-mode");
+
+if(document.body.classList.contains("dark-mode")){
+localStorage.setItem("darkMode","enabled");
+}else{
+localStorage.setItem("darkMode","disabled");
+}
+
+});
+
+</script>
+
+
+
+<footer style="text-align:center;margin-top:40px;color:#777;font-size:14px;">
+Student Tracker © 2026
+</footer>
+
+</body>
+</html>

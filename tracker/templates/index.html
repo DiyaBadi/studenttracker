@@ -1,0 +1,563 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>StudentSync - Academic Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+h1,h2,h3{
+    font-family:'Montserrat',sans-serif;
+    letter-spacing:1px;
+}
+
+    /* NAVBAR */
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 60px;
+        background: white;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #4e73df;
+    }
+
+    .logo i{
+        font-size: 26px;
+        color: #4e73df
+    }
+
+    .nav-buttons a {
+        margin-left: 12px;
+        padding: 8px 18px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .login-btn {
+        background: #eef2ff;
+        color: #333;
+    }
+
+    .login-btn:hover {
+        background: #dbe2ff;
+    }
+
+    .register-btn {
+        background: #4e73df;
+        color: white;
+    }
+
+    .register-btn:hover {
+        background: #2e59d9;
+    }
+
+    /* HERO SECTION */
+.hero{
+height:90vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+
+background: radial-gradient(circle at center,
+#4fa9ff 0%,
+#2b7de9 40%,
+#1e4fbf 80%,
+#153a8a 100%);
+}
+
+    .hero h1{
+    font-size:60px;
+    margin-bottom:15px;
+    text-shadow:0 8px 30px rgba(255,255,255,0.35);
+}
+    .hero h3 {
+        font-weight: 400;
+        margin-bottom: 15px;
+    }
+
+    .hero p {
+        max-width: 600px;
+        margin-bottom: 30px;
+    }
+
+    .hero-btn {
+        background: white;
+        color: #4e73df;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .hero-btn:hover {
+        transform: scale(1.05);
+    }
+
+    /* FEATURES */
+
+    .features {
+    padding: 80px 40px;
+    text-align: center;
+    background: linear-gradient(to bottom, #f8f9fc, #eef2ff);
+}
+
+    .feature-container {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+
+    .feature-card {
+    width: 240px;
+    background: white;
+    padding: 30px 20px;
+    border-radius: 16px;
+    border: 2px solid #e3e8ff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.feature-card::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(78,115,223,0.2), transparent);
+    top: 0;
+    left: -100%;
+    transition: 0.5s;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    border-color: #4e73df;
+    box-shadow: 0 15px 35px rgba(78,115,223,0.3);
+}
+
+   .feature-card i {
+    font-size: 40px;
+    color: #4e73df;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+    .feature-card:hover i {
+    transform: rotate(8deg) scale(1.15);
+}
+    .feature-card:hover{
+    transform:translateY(-10px);
+    border-color:#4e73df;
+    box-shadow:0 10px 25px rgba(78,115,223,0.3);
+}
+
+    /* STATS */
+
+    .stats{
+    padding:80px;
+    text-align:center;
+    background:#f8f9fc;
+}
+
+    .stats-container {
+        display: flex;
+        justify-content: center;
+        gap: 70px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+
+    .stat{
+    background:white;
+    padding:30px;
+    width:200px;
+    border-radius:12px;
+    border:2px solid #e3e8ff;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.stat:hover{
+    transform:scale(1.08);
+    border-color:#4e73df;
+    box-shadow:0 10px 25px rgba(78,115,223,0.3);
+}
+
+.stat h1{
+    color:#4e73df;
+    font-size:40px;
+}
+
+    /* REVIEWS */
+
+    .reviews {
+        background: #eef2ff;
+        padding: 80px;
+        text-align: center;
+    }
+
+    .review-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+
+    .review-card{
+    min-width:240px;
+    background:white;
+    padding:25px;
+    border-radius:14px;
+    border:2px solid #e3e8ff;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.review-card:hover{
+    transform:translateY(-10px);
+    border-color:#4e73df;
+}
+    
+
+    .review-card img {
+        width: 60px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    /* FOOTER */
+
+    footer{
+    background: radial-gradient(circle at center,
+    #4fa9ff 0%,
+    #2b7de9 40%,
+    #1e4fbf 80%,
+    #153a8a 100%);
+    color:white;
+    padding:60px;
+}
+
+    .footer-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    footer a{
+    color:#dbeafe;
+    text-decoration:none;
+}
+
+footer a:hover{
+    color:white;
+}
+
+.review-slider{
+    overflow:hidden;
+    width:100%;
+    margin-top:40px;
+}
+
+.review-track{
+    display:flex;
+    gap:30px;
+    animation:scrollReviews 25s linear infinite;
+}
+
+.stars{
+    color:#fbbf24;
+    font-size:18px;
+}
+
+@keyframes scrollReviews{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    100%{
+        transform:translateX(-50%);
+    }
+}
+
+.features h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    position: relative;
+    display: inline-block;
+}
+
+.features h2::after {
+    content: '';
+    width: 60%;
+    height: 4px;
+    background: #4e73df;
+    display: block;
+    margin: 8px auto 0;
+    border-radius: 10px;
+}
+
+
+
+
+</style>
+
+</head><body><!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="logo">
+    <i class="fa-solid fa-graduation-cap"></i>
+    <span>StudentSync</span>
+</div>
+
+    <div class="nav-buttons">
+        <a href="/login/" class="login-btn">Login</a>
+        <a href="/register/" class="register-btn">Register</a>
+    </div>
+
+</div>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>StudentSync</h1>
+
+    <h3>Assignment, Marks & Task Tracker</h3>
+
+    <p>
+        Manage your academic life effortlessly.
+        Track assignments, organize tasks and monitor
+        your marks all in one place.
+    </p>
+
+    <a href="/register/" class="hero-btn">Get Started</a>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features">
+
+    <h2>Why Students Use StudentSync</h2>
+
+    <div class="feature-container">
+
+        <div class="feature-card">
+    <i class="fa-solid fa-chart-line"></i>
+    <h3>Track Marks</h3>
+    <p>Monitor your academic performance easily.</p>
+</div>
+
+        <div class="feature-card">
+    <i class="fa-solid fa-chart-pie"></i>
+    <h3>Performance Insights</h3>
+    <p>Identify strengths and weak subjects.</p>
+</div>
+
+        <div class="feature-card">
+    <i class="fa-solid fa-folder-open"></i>
+    <h3>Marks History</h3>
+    <p>Access all exam records anytime.</p>
+</div>
+
+        <div class="feature-card">
+    <i class="fa-solid fa-list-check"></i>
+    <h3>Task Tracker</h3>
+    <p>Manage assignments and pending tasks.</p>
+</div>
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <h2>Trusted by Students</h2>
+
+    <div class="stats-container">
+
+        <div class="stat">
+            <h1 id="students">0</h1>
+            <p>Students Using</p>
+        </div>
+
+        <div class="stat">
+            <h1 id="exams">0</h1>
+            <p>Exams Tracked</p>
+        </div>
+
+        <div class="stat">
+            <h1 id="reviewsCount">0</h1>
+            <p>Positive Reviews</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REVIEWS -->
+
+<section class="reviews">
+
+    <h2>Student Reviews</h2>
+
+    <div class="review-slider">
+
+        <div class="review-track">
+
+            <!-- Review 1 -->
+            <div class="review-card">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg">
+                <h4>Ananya</h4>
+                <p>Engineering Student</p>
+                <span class="stars">★ ★ ★ ★ ★</span>
+                <p>Great platform to track exams.</p>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg">
+                <h4>Rahul</h4>
+                <p>Computer Science</p>
+                <span class="stars">★ ★ ★ ★ ★</span>
+                <p>Helps identify weak subjects.</p>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg">
+                <h4>Meera</h4>
+                <p>BCA Student</p>
+                <span class="stars">★ ★ ★ ★ ☆</span>
+                <p>Very simple and helpful.</p>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="review-card">
+                <img src="https://randomuser.me/api/portraits/men/12.jpg">
+                <h4>Arjun</h4>
+                <p>Data Science</p>
+                <span class="stars">★ ★ ★ ★ ★</span>
+                <p>Love the performance insights.</p>
+            </div>
+
+            <!-- Review 5 -->
+            <div class="review-card">
+                <img src="https://randomuser.me/api/portraits/women/55.jpg">
+                <h4>Sneha</h4>
+                <p>MCA Student</p>
+                <span class="stars">★ ★ ★ ★ ★</span>
+                <p>Best academic tracker!</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div>
+            <h3>StudentSync</h3>
+            <p>
+                Helping students manage assignments,
+                track marks and improve academic performance.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+            <p><a href="/">Home</a></p>
+            <p><a href="/login/">Login</a></p>
+            <p><a href="/register/">Register</a></p>
+        </div>
+
+        <div>
+            <h3>Contact</h3>
+            <p>Email: support@studentsync.com</p>
+            <p>Phone: +91 98765 43210</p>
+        </div>
+
+    </div>
+
+    <hr style="margin:30px 0;border-color:#444">
+
+    <p style="text-align:center;">© 2026 StudentSync</p>
+
+</footer>
+
+
+<!-- COUNTER SCRIPT -->
+
+<script>
+
+    let s = 0, e = 0, r = 0;
+
+    setInterval(() => {
+
+        if (s < 500) {
+            s += 10;
+            document.getElementById("students").innerText = s + "+";
+        }
+
+        if (e < 1200) {
+            e += 20;
+            document.getElementById("exams").innerText = e + "+";
+        }
+
+        if (r < 300) {
+            r += 5;
+            document.getElementById("reviewsCount").innerText = r + "+";
+        }
+
+    }, 50);
+
+
+</script>
+
+</body></html>
