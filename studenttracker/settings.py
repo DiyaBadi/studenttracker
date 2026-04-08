@@ -76,9 +76,12 @@ WSGI_APPLICATION = 'studenttracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
+DATABASES = {}
+
+if os.environ.get('RENDER') == 'true' :
+    DATABASES['default'] = dj_database_url.parse(os.environ['DATABASE_URL'])
+else:
+    DATABASES['default'] = dj_database_url.parse('postgresql://studenttracker:pcxG6oJ97lfFswcxNh9NSjvnSH0baSkK@dpg-d7aupgsvjg8s73eo6kig-a.oregon-postgres.render.com/studenttracker')
 
 
 # Password validation
