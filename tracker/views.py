@@ -73,7 +73,7 @@ def user_logout(request):
 # --------------------------
 @login_required
 def dashboard(request):
-    send_deadline_notifications()
+    #send_deadline_notifications()
 
     marks = Mark.objects.filter(user=request.user).order_by("date")
 
@@ -374,7 +374,7 @@ def update_mark(request,id):
         return JsonResponse({"status":"success"})
 
 
-def send_deadline_notifications():
+#def send_deadline_notifications():
 
     tomorrow = timezone.now().date() + timedelta(days=1)
 

@@ -76,13 +76,17 @@ WSGI_APPLICATION = 'studenttracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {}
-
-if os.environ.get('RENDER') == 'true' :
-    DATABASES['default'] = dj_database_url.parse(os.environ['DATABASE_URL'])
+if os.environ.get('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 else:
-    DATABASES['default'] = dj_database_url.parse('postgresql://studenttracker:pcxG6oJ97lfFswcxNh9NSjvnSH0baSkK@dpg-d7aupgsvjg8s73eo6kig-a.oregon-postgres.render.com/studenttracker')
-
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -113,6 +117,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+DEBUG = True
+
+
 
 
 # Static files (CSS, JavaScript, Images)
