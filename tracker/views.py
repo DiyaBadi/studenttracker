@@ -374,7 +374,8 @@ def update_mark(request,id):
         return JsonResponse({"status":"success"})
 
 
-#def send_deadline_notifications():
+def send_deadline_notifications():
+    return 
 
     tomorrow = timezone.now().date() + timedelta(days=1)
 
